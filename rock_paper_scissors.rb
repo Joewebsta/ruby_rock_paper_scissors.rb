@@ -1,33 +1,23 @@
 class Game
-  def initialize
-    @player = []
-  end
-
-  def add_player(player)
+  def initialize(player)
     @player = player
-    intro_message
+    play_round
   end
 
-  def intro_message
-    puts "A new game has been created. Welcome #{@player.name}!"
-    get_player_selection
-  end
-
-  def get_player_selection
-    puts 'Rock, paper or scissors. What do you select?'
-    selection = gets.chomp
-    play_round(selection)
-  end
-
-  def get_comp_selection
-    %w[Rock Paper Scissors][rand(0..2)]
-  end
-
-  def play_round(selection)
-    comp_selection = get_comp_selection
-    player_selection = selection
+  def play_round
+    comp_selection = determine_comp_selection
+    player_selection = determine_player_selection
     puts "Player selection: #{player_selection}"
     puts "Computer selection: #{comp_selection}"
+  end
+
+  def determine_player_selection
+    puts 'Rock, paper or scissors. What do you select?'
+    gets.chomp
+  end
+
+  def determine_comp_selection
+    %w[Rock Paper Scissors][rand(0..2)]
   end
 end
 
@@ -42,5 +32,4 @@ end
 puts 'Please enter your name:'
 player_name = gets.chomp
 player = Player.new(player_name)
-game = Game.new
-game.add_player(player)
+Game.new(player)
